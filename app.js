@@ -1,23 +1,14 @@
-
-/* document.getElementById("search-option").addEventListener("click", function(){
-    console.log("clicked by event listener")
-})
-*/
-// 1st function
-
-// const searchSong = () =>{
-
-//     const searchInput = document.getElementById("search-input").value;
-//     const url = `https://api.lyrics.ovh/suggest/${searchInput}`;
-//     fetch(url)
-//     .then(res => res.json())
-//     .then(dataAll => displaySong(dataAll.data));
-
-// }
+const searchBtn = document.getElementById('search-option');
+document.getElementById("search-input").addEventListener("keypress", function(event) {
+    if (event.key === 'Enter'){
+        searchBtn.click();
+    }
+});
 
 // 1st function useing async await
 const searchSong = async() => {
     const searchInput = document.getElementById("search-input").value;
+    toggleSpinner();
     try{
         const url = `https://api.lyrics.ovh/suggest/${searchInput}`;
         const res = await fetch(url);
@@ -27,6 +18,7 @@ const searchSong = async() => {
     catch(error){
         errorShow("sorry something is worong !");
     }
+    toggleSpinner();
 
 }
 
@@ -58,7 +50,7 @@ const displaySong = songs =>{
 
 }
 
-// 3rd function
+// 3rd function for lyeics
 
 const getLyrics = (artist,title) => {
     // https://api.lyrics.ovh/v1/artist/title
@@ -80,3 +72,23 @@ const errorShow = error =>{
     const errorP = document.getElementById("errorP");
     errorP.innerText = error;
 }
+
+// show Spinner with if else
+/*
+const toggleSpinner = (add) =>{
+    const spinner = document.getElementById('spinner');
+    if (add){
+        spinner.classList.remove('d-none');
+    }
+    else{
+        spinner.classList.add('d-none');
+    }
+}
+*/
+
+// use toggle
+const toggleSpinner = () =>{
+    const spinner = document.getElementById('spinner');
+    spinner.classList.toggle('d-none');
+}
+
